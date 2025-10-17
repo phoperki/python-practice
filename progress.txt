@@ -1,0 +1,8 @@
+Day 0: Password Checker
+Day 1: Longest word finder
+Day 2: Temperature converter
+Day 2.5: Email validator
+Day 3: List reverse (3 methods)
+
+I'm comfortable with: loops, functions, basic string methods, lists
+Still learning: file I/O, error handling, OOP
