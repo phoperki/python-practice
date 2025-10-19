@@ -22,10 +22,13 @@ def safe_add_item(filename, item):
     try:
         with open(filename, "a") as f:
             f.write(f"{item}\n")
+            return True
     except PermissionError:
         print("You do not have proper permissions to write to the file.")
+        return False
     except OSError as e:
-        print("General error: {e}")
+        print(f"General error: {e}")
+        return False
     pass
 
 def safe_remove_item(filename, item):
@@ -54,6 +57,13 @@ def get_number_from_user():
     # Ask user for a number
     # Keep asking until they enter a valid number
     # Handle: letters, symbols, empty input
+    while True:
+        try:
+            x = int(input("Input a number:"))
+            print(f"Your number is {x}")
+            break
+        except ValueError:
+            print("Enter a valid number.")
     pass
 
 # Test cases - these should NOT crash your program!
