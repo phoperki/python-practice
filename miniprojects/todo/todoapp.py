@@ -1,6 +1,16 @@
 # A simple todo list app.
 # Read from tasks.txt, add todos, set deadlines, set priority, and have a menu.
 
+def read_tasks():
+    try:
+        with open("tasks.txt", "r") as f:
+            tasks = f.readlines()
+
+        return tasks
+    except FileNotFoundError:
+        print("File not found.")
+
+
 def add_task(task):
     # Add task to tasks.txt
     # Append to the file
@@ -54,20 +64,38 @@ def remove_task(task):
     except Exception as e:
         print(f"An error has occured: {e}")
 
+def clear_tasks():
+    tasks = read_tasks()
+    
+    try:
+        answer = input("Are you sure you want to clear ALL tasks? Yes or No")
+        if answer == "Yes":
+            tasks = []
+            with open("tasks.txt", "w") as f:
+                f.write(tasks)
+        elif answer == "No":
+            pass
+
+    except ValueError:
+        print("Are you sure? Enter 'Yes' or 'No'")
+
+    pass
 
 def main():
     # Simple menu:
     # 1. Add task
     # 2. Show tasks
     # 3. Remove task
-    # 4. Quit
+    # 4. Clear Tasks
+    # 5. Quit
 
     while True:
         print("\nTodo List: \n" \
         "1 -- Add Task\n" \
         "2 -- Show Tasks\n" \
         "3 -- Remove Task\n" \
-        "4 -- Quit")
+        "4 -- Clear Tasks\n" \
+        "5 -- Quit")
         try:
             select = int(input("What is your selection: "))
             if select == 1:
@@ -80,6 +108,8 @@ def main():
                 task = input("What task do you want to remove: ")
                 remove_task(task)
             elif select == 4:
+                clear_tasks()
+            elif select == 5:
                 print("Thank you for reading the task list.")
                 break
 
@@ -89,5 +119,7 @@ def main():
         except Exception as e:
             print(f"An error has occured: {e}")    
 
+
 # Run it
 main()
+
