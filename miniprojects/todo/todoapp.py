@@ -4,8 +4,7 @@
 def read_tasks():
     try:
         with open("tasks.txt", "r") as f:
-            tasks = f.readlines()
-
+            tasks = [line.strip() for line in f.readlines()]
         return tasks
     except FileNotFoundError:
         print("File not found.")
@@ -14,8 +13,6 @@ def read_tasks():
 def add_task(task):
     # Add task to tasks.txt
     # Append to the file
-
-    
     try:
         with open('tasks.txt', 'a') as f:
             f.write(f"{task}\n")
@@ -28,10 +25,8 @@ def add_task(task):
         print("You don't have permissions to write to this directory.")
     
     
-
 def show_tasks():
     # Read tasks.txt and print all tasks
-
     try:
         with open('tasks.txt', 'r') as f:
             tasks = f.readlines()
@@ -47,6 +42,7 @@ def show_tasks():
     
 
 def remove_task(task):
+    # User should provide number of task to remove
     try:
         with open('tasks.txt', 'r') as f:
             lines = f.readlines()
@@ -64,22 +60,33 @@ def remove_task(task):
     except Exception as e:
         print(f"An error has occured: {e}")
 
+
 def clear_tasks():
-    tasks = read_tasks()
-    
     try:
-        answer = input("Are you sure you want to clear ALL tasks? Yes or No")
+        answer = input("Are you sure you want to clear ALL tasks? Yes or No ")
         if answer == "Yes":
-            tasks = []
+            tasks = ""
             with open("tasks.txt", "w") as f:
                 f.write(tasks)
         elif answer == "No":
             pass
 
     except ValueError:
-        print("Are you sure? Enter 'Yes' or 'No'")
+        print("Are you sure? Enter 'Yes' or 'No' ")
 
-    pass
+
+def complete_task(completed_task):
+    # First read the tasks
+    tasks = read_tasks()
+    # Append --[DONE] to end of task
+    for i, task in enumerate(tasks):
+        if completed_task == task:
+            tasks[i] = f"{task} --[Done]"
+    # Write tasks back to tasks.txt
+    with open("tasks.txt", "w") as f:
+        for task in tasks:
+            f.write(f"{task}\n")
+
 
 def main():
     # Simple menu:
@@ -95,7 +102,8 @@ def main():
         "2 -- Show Tasks\n" \
         "3 -- Remove Task\n" \
         "4 -- Clear Tasks\n" \
-        "5 -- Quit")
+        "5 -- Complete Task\n"
+        "6 -- Quit")
         try:
             select = int(input("What is your selection: "))
             if select == 1:
@@ -110,14 +118,20 @@ def main():
             elif select == 4:
                 clear_tasks()
             elif select == 5:
+                task = input("What task do you want to complete: ")
+                complete_task(task)
+            elif select == 6:
                 print("Thank you for reading the task list.")
                 break
+            else:
+                print("Enter a valid selection.")
 
         except ValueError:
             print("Enter a valid number.")
 
         except Exception as e:
             print(f"An error has occured: {e}")    
+
 
 
 # Run it
