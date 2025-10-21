@@ -36,17 +36,38 @@ def show_tasks():
         print("Error has occured.")
     
 
+def remove_task(task):
+    try:
+        with open('tasks.txt', 'r') as f:
+            lines = f.readlines()
+        
+        new_lines=[]
+        for line in lines:
+            if line.strip() != task:
+                new_lines.append(line)
+    
+        with open('tasks.txt', "w") as f:
+            f.writelines(new_lines)
+    except Exception as e:
+        print(f"An error has occured: {e}")
+        
+
+
+    pass
+
 def main():
     # Simple menu:
     # 1. Add task
     # 2. Show tasks
-    # 3. Quit
+    # 3. Remove task
+    # 4. Quit
 
     while True:
-        print("Todo List: \n" \
+        print("\nTodo List: \n" \
         "1 -- Add Task\n" \
         "2 -- Show Tasks\n" \
-        "3 -- Quit")
+        "3 -- Remove Task\n" \
+        "4 -- Quit")
         try:
             select = int(input("What is your selection: "))
             if select == 1:
@@ -56,6 +77,9 @@ def main():
                 print("Here is the current todo list: ")
                 show_tasks()
             elif select == 3:
+                task = input("What task do you want to remove: ")
+                remove_task(task)
+            elif select == 4:
                 print("Thank you for reading the task list.")
                 break
 
