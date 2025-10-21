@@ -48,12 +48,12 @@ def remove_task(task):
     
         with open('tasks.txt', "w") as f:
             f.writelines(new_lines)
+    except TypeError:
+        print(f"{task} is not in the task list.")
+    
     except Exception as e:
         print(f"An error has occured: {e}")
-        
 
-
-    pass
 
 def main():
     # Simple menu:
