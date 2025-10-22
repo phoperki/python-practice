@@ -3,39 +3,45 @@
 # This time reading and writing to csv file
 import csv
 
+field_names = ["task", "status"]
+
 def read_tasks():
     try:
         with open("tasks.csv", "r", newline='') as f:
             tasks = csv.DictReader(f)
+            
             return list(tasks)
     
     except FileNotFoundError:
         print("File not found. Creating now... ")
         
         with open("tasks.csv", "w", newline="") as f:
-            fieldnames = ["task", "status"]
-            writer = csv.DictWriter(f, fieldnames=fieldnames)
+            writer = csv.DictWriter(f, fieldnames=field_names)
             writer.writeheader()
-            writer.writerow({"task": "add tasks", "status": "incomplete"})
+            writer.writerow({"task": "Add Tasks", "status": "Incomplete"})
+            writer.writerow({"task": "Get Groceries", "status": "Complete"})
+
+        return []
 
 
 def add_task(task):
-    # Add task to tasks.csv
+    # Use writer.writerow?
+    # Append to end of task list, then rewrite whole tasks.csv?
     # Append to the file
-   
+   tasks = read_tasks()
+   with open("tasks.csv", "a", newline="") as f:
+            writer = csv.DictWriter(f, fieldnames=field_names)
+            writer.writerow({"task": task, "status": "Incomplete"})
    pass
     
     
 def show_tasks():
-    # Read tasks.txt and print all tasks
+    # Read tasks.csv and print all tasks
     tasks = read_tasks()
-    
-    pass
+    print(f"{field_names[0]} | {field_names[1]}")
+    for row in tasks:
+        print(f"{row['task']} | {row['status']}")
 
-read_tasks()
-print(show_tasks())
-        
-    
 
 def remove_task(task):
     # User should provide number of task to remove
@@ -100,7 +106,17 @@ def main():
         "4 -- Clear Tasks\n" \
         "5 -- Complete Task\n"
         "6 -- Quit")
-        break
+
+        x = int(input("What is your selection: "))
+        if x == 1:
+            task = input("What is your task to add: ")
+            add_task(task)
+        elif x == 2:
+            show_tasks()
+        elif x == 6:
+            break
+        else:
+            print("Make a valid selection. ")
 
 
 
