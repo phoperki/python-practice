@@ -1,4 +1,4 @@
 task,status
-Add Tasks,Incomplete
-Get Groceries,Complete
-foo,Incomplete
+foo,incomplete
+bar,complete
+foobar,complete
