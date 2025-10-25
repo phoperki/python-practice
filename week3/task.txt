@@ -1,0 +1,6 @@
+list_comp_practice.py and write list comprehensions for:
+
+Square all numbers from 1 to 10
+Get all words from a sentence that start with 'a' or 'A'
+Convert a list of temperatures from Celsius to Fahrenheit
+Get all even numbers from 1 to 20
